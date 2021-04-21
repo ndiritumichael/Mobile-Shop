@@ -1,18 +1,16 @@
-package com.devmike.mobilegrocery.ui.main
+package com.devmike.mobilegrocery.ui.productDetails
 
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.asLiveData
 import com.devmike.mobilegrocery.models.Product
 import com.devmike.mobilegrocery.repository.Repository
 import dagger.hilt.android.lifecycle.HiltViewModel
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(val repository: Repository): ViewModel() {
+class ProductsDetailsViewModel @Inject constructor( val repository: Repository) : ViewModel() {
 
-  val allProducts
-  get() = repository.allProducts.asLiveData()
-
-
+    fun addCart(product: Product){
+        repository.addOrderitem(product)
+    }
 
 }

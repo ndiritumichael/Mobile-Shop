@@ -9,10 +9,10 @@ import com.devmike.mobilegrocery.databinding.ProductsadapterlayoutBinding
 import com.devmike.mobilegrocery.models.Product
 import com.devmike.mobilegrocery.utils.ProductsDiffUtil
 
-class ProductAdapter : ListAdapter<Product, ProductAdapter.ProductsViewHolder>(ProductsDiffUtil()) {
+class ProductAdapter (private val details :(Product)-> Unit): ListAdapter<Product, ProductAdapter.ProductsViewHolder>(ProductsDiffUtil()) {
 
 
-    class ProductsViewHolder(private val binding: ProductsadapterlayoutBinding) :
+   inner class ProductsViewHolder(private val binding: ProductsadapterlayoutBinding) :
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
@@ -20,6 +20,10 @@ class ProductAdapter : ListAdapter<Product, ProductAdapter.ProductsViewHolder>(P
                 productsImageview.setImageResource(product.image)
                 productsNameTv.text = product.name
                 productsAmountTv.text = product.pricePerUnit.toString()
+
+                root.setOnClickListener {
+                    details(product)
+                }
             }
 
         }

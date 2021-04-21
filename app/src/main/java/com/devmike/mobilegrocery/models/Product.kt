@@ -1,9 +1,12 @@
 package com.devmike.mobilegrocery.models
 
+import android.os.Parcelable
+import kotlinx.parcelize.Parcelize
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity
+@Parcelize
 data class Product(
 
     @PrimaryKey(autoGenerate = true)
@@ -13,4 +16,4 @@ data class Product(
     val image: Int,
     val description: String
 
-)
+):Parcelable
