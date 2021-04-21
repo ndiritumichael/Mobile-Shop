@@ -6,9 +6,27 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     tools:context=".ui.main.MainFragment">
+   <com.google.android.material.appbar.AppBarLayout
+       android:layout_width="match_parent"
+       android:visibility="gone"
+
+       android:layout_height="wrap_content"
+       android:theme="@style/Widget.MaterialComponents.AppBarLayout.Primary">
+
+      <androidx.appcompat.widget.Toolbar
+
+          android:id="@+id/toolbar"
+
+          android:layout_width="match_parent"
+          android:layout_height="?attr/actionBarSize"
+          android:background="?attr/colorPrimary"
+          app:popupTheme="@style/Widget.MaterialComponents.Toolbar.Primary" />
+
+   </com.google.android.material.appbar.AppBarLayout>
 
    <androidx.recyclerview.widget.RecyclerView
        android:padding="8dp"
+       android:layout_marginTop="?actionBarSize"
        app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
        android:layout_width="match_parent"
        android:layout_height="match_parent"

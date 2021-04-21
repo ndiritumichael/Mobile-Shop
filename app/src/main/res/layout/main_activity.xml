@@ -9,22 +9,25 @@
     <com.google.android.material.appbar.AppBarLayout
         android:layout_width="match_parent"
 
+
         android:layout_height="wrap_content"
         android:theme="@style/Widget.MaterialComponents.AppBarLayout.Primary">
 
         <androidx.appcompat.widget.Toolbar
 
             android:id="@+id/toolbar"
-            app:menu="@menu/cart_menu"
+            app:titleTextColor="@color/white"
+
             android:layout_width="match_parent"
             android:layout_height="?attr/actionBarSize"
             android:background="?attr/colorPrimary"
             app:popupTheme="@style/Widget.MaterialComponents.Toolbar.Primary" />
 
     </com.google.android.material.appbar.AppBarLayout>
+
     <androidx.fragment.app.FragmentContainerView
         android:layout_width="match_parent"
-        android:layout_marginTop="?actionBarSize"
+
         android:layout_height="match_parent"
         app:defaultNavHost="true"
         android:id="@+id/nav_host_fragment"

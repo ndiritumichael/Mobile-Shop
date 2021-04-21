@@ -6,14 +6,14 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.devmike.mobilegrocery.R
-import com.devmike.mobilegrocery.models.Orders
+import com.devmike.mobilegrocery.models.OrdersItem
 import com.devmike.mobilegrocery.models.Product
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.GlobalScope
 import kotlinx.coroutines.launch
 import java.util.*
 
-@Database(entities = [Product::class, Orders::class], version = 1, exportSchema = false)
+@Database(entities = [Product::class, OrdersItem::class], version = 1, exportSchema = false)
 abstract class ProductsRoomDatabase : RoomDatabase() {
     abstract fun productsDao(): ProductsDao
 

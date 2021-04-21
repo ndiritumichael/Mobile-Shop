@@ -9,5 +9,25 @@
         android:id="@+id/mainFragment"
         android:name="com.devmike.mobilegrocery.ui.main.MainFragment"
         android:label="Home"
-        tools:layout="@layout/main_fragment" />
+        tools:layout="@layout/main_fragment" >
+
+        <action
+            android:id="@+id/action_mainFragment_to_productsDetails2"
+            app:destination="@id/productsDetails"
+            app:enterAnim="@anim/nav_default_enter_anim"
+            app:exitAnim="@anim/nav_default_exit_anim"
+            app:popEnterAnim="@anim/nav_default_pop_enter_anim"
+            app:popExitAnim="@anim/nav_default_pop_exit_anim" />
+    </fragment>
+    <fragment
+        android:id="@+id/productsDetails"
+        android:name="com.devmike.mobilegrocery.ui.productDetails.ProductsDetailsFragment"
+        android:label="products_details_fragment"
+        tools:layout="@layout/products_details_fragment" >
+        <argument
+            android:name="product"
+            app:argType="com.devmike.mobilegrocery.models.Product" />
+    </fragment>
+
+
 </navigation>
