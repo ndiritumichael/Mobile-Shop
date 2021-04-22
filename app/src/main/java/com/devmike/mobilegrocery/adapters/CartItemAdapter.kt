@@ -33,10 +33,11 @@ dif.setOnClickListener {
 }
     """${item.quantity} Kg""".also { quantity.text = it }
     price.text = item.unitPrice.toString()
-    binding.image.load(item.product!!.image){
+    binding.image.setImageResource(item.product!!.image)
+  /*  binding.image.load(item.product!!.image){
         crossfade(true)
-        transformations(CircleCropTransformation())
-    }
+       *//* transformations(CircleCropTransformation())*//*
+    }*/
 }
 
        }

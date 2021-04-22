@@ -22,26 +22,31 @@ android:background="@color/colorPrimary"
     <ImageView
         android:paddingTop="8dp"
         android:paddingBottom="8dp"
+        android:layout_marginTop="4dp"
+
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
+        android:layout_marginBottom="16dp"
+        android:scaleType="centerInside"
 
         android:id="@+id/image"
-        android:layout_width="160dp"
-        android:layout_height="160dp"
+        android:layout_width="120dp"
+        android:layout_height="120dp"
         android:src="@drawable/banana"
 
       />
 
     <TextView
-        android:layout_marginTop="8dp"
+
 
         app:layout_constraintTop_toBottomOf="@id/name"
         app:layout_constraintStart_toEndOf="@id/image"
+        android:layout_marginStart="16dp"
         tools:text="2"
         android:layout_width="wrap_content"
 
-        android:layout_marginStart="15dp"
-        android:layout_centerVertical="true"
+
+
         android:textSize="16sp"
         android:layout_toEndOf="@id/image"
         android:id="@+id/quantity"
@@ -50,16 +55,17 @@ android:background="@color/colorPrimary"
 
         android:layout_height="wrap_content"/>
     <com.google.android.material.textview.MaterialTextView
-        android:layout_marginTop="8dp"
+      android:layout_marginTop="16dp"
         app:layout_constraintBottom_toBottomOf="parent"
         android:layout_width="wrap_content"
-        android:layout_toEndOf="@id/quantity"
+
         app:layout_constraintStart_toEndOf="@id/image"
+        android:layout_marginStart="16dp"
         android:text="Remove"
         android:drawableStart="@drawable/ic_baseline_restore_from_trash_24"
         android:textSize="16sp"
-        android:layout_marginStart="16dp"
-        android:layout_centerVertical="true"
+
+
         android:clickable="true"
         android:id="@+id/dif"
         android:textColor="@android:color/white"
@@ -67,10 +73,12 @@ android:background="@color/colorPrimary"
     <TextView
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toEndOf="@id/image"
+        android:layout_marginStart="16dp"
         tools:text="Kales"
 
+
         android:layout_width="wrap_content"
-        android:layout_marginStart="16dp"
+
 
         android:id="@+id/name"
         android:textSize="24sp"
@@ -79,13 +87,14 @@ android:background="@color/colorPrimary"
         android:layout_height="wrap_content"/>
 
     <TextView
+        app:layout_constraintStart_toEndOf="@id/image"
         android:layout_marginStart="16dp"
         tools:text="$5.00"
         android:layout_width="wrap_content"
-        app:layout_constraintStart_toEndOf="@id/image"
+
         app:layout_constraintTop_toBottomOf="@id/quantity"
         android:textSize="16sp"
-        android:layout_marginTop="16dp"
+
 
         android:textColor="@android:color/white"
         android:id="@+id/price"

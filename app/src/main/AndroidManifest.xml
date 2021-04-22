@@ -11,8 +11,9 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.MobileGrocery">
         <activity android:name=".ui.cart.CartActivity"
+            android:parentActivityName=".ui.MainActivity"
             android:theme="@style/Theme.MaterialComponents.DayNight.DarkActionBar"/>
-        <activity android:name=".MainActivity">
+        <activity android:name=".ui.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
