@@ -1,15 +1,12 @@
-package com.devmike.mobilegrocery
+package com.devmike.mobilegrocery.ui
 
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
-import android.view.MenuItem
 import android.viewbinding.library.activity.viewBinding
-import android.widget.Toast
 import androidx.activity.viewModels
-import androidx.navigation.findNavController
-import com.devmike.mobilegrocery.R.color.white
+import com.devmike.mobilegrocery.R
 
 import com.devmike.mobilegrocery.databinding.MainActivityBinding
 import com.devmike.mobilegrocery.models.OrdersItem
@@ -17,7 +14,6 @@ import com.devmike.mobilegrocery.ui.cart.CartActivity
 import com.devmike.mobilegrocery.ui.main.MainViewModel
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
-import dagger.hilt.android.HiltAndroidApp
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
@@ -32,11 +28,6 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.toolbar.inflateMenu(R.menu.cart_menu)
-
-
-
-
-
 
     }
 
