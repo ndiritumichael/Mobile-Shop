@@ -4,6 +4,8 @@ import android.util.Log
 import com.devmike.mobilegrocery.data.ProductsDao
 import com.devmike.mobilegrocery.models.OrdersItem
 import com.devmike.mobilegrocery.models.Product
+import kotlinx.coroutines.GlobalScope
+import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 class Repository @Inject constructor(val productsDao: ProductsDao) {
@@ -11,49 +13,46 @@ val orderItemsList = mutableListOf<OrdersItem>()
    val allProducts =productsDao.getAllProducts()
 
     suspend fun insertProduct(product: Product) = productsDao.insertProducts(product)
+    val allOrders = productsDao.getAllOrders()
+    suspend fun insertOrder(ordersItem: OrdersItem) = productsDao.insertOrder(ordersItem)
+
+    suspend fun updateOrder(ordersItem: OrdersItem) = productsDao.updateOrder(ordersItem)
+
+    suspend fun getOrder(id:Int) = productsDao.getSingleOrder(id)
+
+    suspend fun clearCart() = productsDao.clearCart()
 
 
 fun addOrderitem(product: Product){
-var ordersItem  = OrdersItem()
-ordersItem.product =product
-    if(orderItemsList.contains(ordersItem.product)){
-        Log.d("repository","increased count Item Added to Cart")
-ordersItem = orderItemsList[orderItemsList.indexOf(ordersItem)]
-        orderItemsList[orderItemsList.indexOf(ordersItem)].quantity = orderItemsList[orderItemsList.indexOf(
-            ordersItem
-        )].quantity?.plus(
-            1
-        )
 
-return
+    GlobalScope.launch {
+       val  ordersItemList = getOrder(product.Id)
+
+        if (ordersItemList.isEmpty()){
+            val ordersItem = OrdersItem(quantity = 1,
+                unitPrice = product.pricePerUnit,
+                productId = product.Id,product = product)
+
+            //duplicating price just in case product price changes after order is made wont affect current orders
+            insertOrder(ordersItem)
+
+
+
+        } else{
+
+            ordersItemList[0].quantity  = ordersItemList[0].quantity!! + 1
+            updateOrder(ordersItemList[0])
+
+        }
 
 
     }
-    Log.d("repository","New Item Added to Cart")
-    ordersItem.quantity =1
-ordersItem.product = product
-orderItemsList.add(ordersItem)
-
-
 
 }
 
-    fun itemCount(): Int {
-        var total = 0
-        for (i in orderItemsList) {
-            val orderItem: OrdersItem = i
-            total += orderItem.quantity!!
-        }
-        return total
-    }
+   suspend fun deleteOrderItem(id: Int) {
+       Log.d("adapter","Repository Stuff Clicked")
+       productsDao.deleteSingleOrder(id)
 
-
-    fun totalCost(): Double {
-        var total:Double = 0.0
-        for (i in orderItemsList) {
-            val orderItem: OrdersItem = i
-            total += orderItem.quantity!!.toDouble() * orderItem.product!!.pricePerUnit
-        }
-        return total
     }
 }

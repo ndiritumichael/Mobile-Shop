@@ -16,7 +16,7 @@ class ProductAdapter (private val details :(Product)-> Unit): ListAdapter<Produc
         RecyclerView.ViewHolder(binding.root) {
         fun bind(product: Product) {
             binding.apply {
-              //  productsImageview.load(product!!.image)
+
                 productsImageview.setImageResource(product.image)
                 productsNameTv.text = product.name
                 productsAmountTv.text = product.pricePerUnit.toString()

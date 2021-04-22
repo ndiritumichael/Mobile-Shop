@@ -1,5 +1,6 @@
 package com.devmike.mobilegrocery
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -11,6 +12,8 @@ import androidx.navigation.findNavController
 import com.devmike.mobilegrocery.R.color.white
 
 import com.devmike.mobilegrocery.databinding.MainActivityBinding
+import com.devmike.mobilegrocery.models.OrdersItem
+import com.devmike.mobilegrocery.ui.cart.CartActivity
 import com.devmike.mobilegrocery.ui.main.MainViewModel
 import com.google.android.material.textview.MaterialTextView
 import dagger.hilt.android.AndroidEntryPoint
@@ -33,6 +36,8 @@ class MainActivity : AppCompatActivity() {
 
 
 
+
+
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -41,18 +46,29 @@ class MainActivity : AppCompatActivity() {
         val actionView = menuItem?.actionView
         if (actionView != null) {
             itemCount = actionView.findViewById(R.id.cart_badge)
-            itemCount.text ="5"
+
         }
 actionView?.setOnClickListener {
     onOptionsItemSelected(menuItem)
+    val intent  = Intent(this,CartActivity::class.java)
+ startActivity(intent)
 
 
 }
+        viewModel.allOrdersItem.observe(this){ list ->
+            if(list.isEmpty()){
+                itemCount.text = "0"
+            } else{
+
+                itemCount(list)
+            }
+
+        }
         return true
 
     }
 
-
+/*
    override fun onOptionsItemSelected(item: MenuItem): Boolean {
        return when (item.itemId) {
            R.id.action_cart -> {
@@ -66,7 +82,18 @@ actionView?.setOnClickListener {
            else -> return false
        }
 
-       }
+       }*/
+
+
+    private fun itemCount(orderItemsList:List<OrdersItem>) {
+        var total = 0
+        for (i in orderItemsList) {
+            val orderItem: OrdersItem = i
+            total += orderItem.quantity
+        }
+        itemCount.text = total.toString()
+
+    }
     }
 /*
     private fun setUpNavigation() {

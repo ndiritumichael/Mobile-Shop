@@ -28,6 +28,10 @@
             android:name="product"
             app:argType="com.devmike.mobilegrocery.models.Product" />
     </fragment>
+    <fragment
+        android:id="@+id/cart_badge"
+        android:name="com.devmike.mobilegrocery.ui.cart.CartFragment"
+        android:label="CartFragment" />
 
 
 </navigation>
