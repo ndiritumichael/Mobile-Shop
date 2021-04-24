@@ -11,6 +11,8 @@
     android:layout_height="wrap_content">
 
     <LinearLayout
+
+        android:id="@+id/productsLinear"
         android:orientation="vertical"
 
         android:layout_width="match_parent"
@@ -43,5 +45,12 @@
 
 
     </LinearLayout>
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:foregroundTint="@color/black"
+        android:layout_gravity="center"
+        android:visibility="visible"
+        android:layout_height="wrap_content"
+        android:id="@+id/pic_loading"/>
 
 </com.google.android.material.card.MaterialCardView>

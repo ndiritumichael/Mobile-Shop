@@ -122,6 +122,7 @@ class CartActivity : AppCompatActivity() {
                     )
                     Log.d(TAG,"$payment")
                     viewmodel.clearcart()
+                    binding.checkout.visibility = View.GONE
                     binding.confirmed.root.visibility = View.VISIBLE
                     binding.confirmed.amount.text = """USD: ${payment.amount.toString()}"""
                     binding.confirmed.paymentID.text = "ID of Payment: ${response.response.id}"
