@@ -17,7 +17,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:textSize="24sp"
-       android:text="PAYMENT DETAILS"
+        android:text="@string/order_payment_confirmed"
+        android:textStyle="bold"
+        />
+    <com.google.android.material.textview.MaterialTextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textSize="24sp"
+       android:text="@string/payment_details"
         android:textStyle="bold"
         />
     <com.google.android.material.textview.MaterialTextView

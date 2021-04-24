@@ -1,6 +1,7 @@
 package com.devmike.mobilegrocery.adapters
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
@@ -17,7 +18,14 @@ class ProductAdapter (private val details :(Product)-> Unit): ListAdapter<Produc
         fun bind(product: Product) {
             binding.apply {
 
-                productsImageview.load(product.image)
+                productsImageview.load(product.image){
+listener(
+    onSuccess ={_, _ ->
+        binding.picLoading.visibility = View.GONE
+        binding.productsLinear.visibility = View.VISIBLE
+    }
+)
+                }
                 productsNameTv.text =  product.name
                 productsAmountTv.text = "USD: ${product.pricePerUnit}"
 
