@@ -28,11 +28,10 @@ class ProductsDetailsFragment : Fragment(R.layout.products_details_fragment) {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         product = args.product
-        /*(activity as AppCompatActivity).supportActionBar?.title = product.name
-        (activity as AppCompatActivity).supportActionBar!!.setDisplayHomeAsUpEnabled(true)
-        (activity as AppCompatActivity).supportActionBar!!.setHomeButtonEnabled(true)*/
+
         binding.name.text = product.name.capitalize(Locale.getDefault())
         binding.description.text = product.description
+        binding.price.text = "USD: ${product.pricePerUnit}"
         binding.images.load(product.image)
         binding.addToCart.setOnClickListener {
             viewModel.addCart(product)

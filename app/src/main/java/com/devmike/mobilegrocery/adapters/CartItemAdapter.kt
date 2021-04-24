@@ -31,13 +31,13 @@ dif.setOnClickListener {
  deleteOrder(item.orderItemId!!)
 
 }
-    """${item.quantity} Kg""".also { quantity.text = it }
-    price.text = item.unitPrice.toString()
-    binding.image.setImageResource(item.product!!.image)
-  /*  binding.image.load(item.product!!.image){
+    """${item.quantity} Devices""".also { quantity.text = it }
+    price.text = "USD: ${item.unitPrice.toString()}"
+  //  binding.image.setImageResource(item.product!!.image)
+   binding.image.load(item.product!!.image){
         crossfade(true)
-       *//* transformations(CircleCropTransformation())*//*
-    }*/
+       //* transformations(CircleCropTransformation())*//*
+    }
 }
 
        }

@@ -17,9 +17,9 @@ class ProductAdapter (private val details :(Product)-> Unit): ListAdapter<Produc
         fun bind(product: Product) {
             binding.apply {
 
-                productsImageview.setImageResource(product.image)
-                productsNameTv.text = product.name
-                productsAmountTv.text = product.pricePerUnit.toString()
+                productsImageview.load(product.image)
+                productsNameTv.text =  product.name
+                productsAmountTv.text = "USD: ${product.pricePerUnit}"
 
                 root.setOnClickListener {
                     details(product)

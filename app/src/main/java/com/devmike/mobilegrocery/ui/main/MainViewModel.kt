@@ -23,7 +23,9 @@ class MainViewModel @Inject constructor(val repository: Repository): ViewModel()
     repository.deleteOrderItem(id)
   }
 
-
+    fun clearcart()  = viewModelScope.launch {
+      repository.clearCart()
+    }
 
 
 }
