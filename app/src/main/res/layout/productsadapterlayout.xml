@@ -19,8 +19,8 @@
         <ImageView
             android:padding="6dp"
             android:backgroundTint="#000"
-            android:src="@drawable/banana"
-            android:scaleType="fitCenter"
+
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:id="@+id/products_imageview"
@@ -30,7 +30,7 @@
             android:layout_width="match_parent"
             android:gravity="center"
             android:layout_height="wrap_content"
-            android:text="Managu"
+            android:text="Iphone 12"
             android:id="@+id/products_name_tv"
             android:textSize="20sp"
             style="bold"/>
@@ -40,11 +40,7 @@
             android:text="KSh 50.00"
             android:gravity="center"
             android:id="@+id/products_amount_tv" />
-        <com.google.android.material.textview.MaterialTextView
-            android:layout_width="match_parent"
-            android:gravity="center"
-            android:layout_height="wrap_content"
-            android:text="Per Kg" />
+
 
     </LinearLayout>
 

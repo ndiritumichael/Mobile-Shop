@@ -13,7 +13,7 @@ data class Product(
     var Id:Int=0,
     val name: String,
     val pricePerUnit: Double,
-    val image: Int,
+    val image: String,
     val description: String
 
 ):Parcelable

@@ -23,13 +23,19 @@ android {
         versionName "1.0"
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
+
+    }
+    buildTypes.each {
+        it.buildConfigField 'String', 'API_KEY', API_KEY
     }
 
     buildTypes {
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+            buildConfigField "String",'API_KEY',API_KEY
         }
+
     }
     compileOptions {
         sourceCompatibility JavaVersion.VERSION_1_8
@@ -90,6 +96,9 @@ dependencies {
 
     //paypal sdk
     implementation 'com.paypal.sdk:paypal-android-sdk:2.16.0'
+
+    //jsonconvertor
+    implementation 'com.google.code.gson:gson:2.8.6'
 
 
 

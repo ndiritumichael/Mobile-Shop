@@ -6,6 +6,7 @@ import android.os.Bundle
 import android.view.Menu
 import android.viewbinding.library.activity.viewBinding
 import androidx.activity.viewModels
+import com.devmike.mobilegrocery.BuildConfig
 import com.devmike.mobilegrocery.R
 
 import com.devmike.mobilegrocery.databinding.MainActivityBinding
@@ -17,6 +18,7 @@ import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
 class MainActivity : AppCompatActivity() {
+   // val consumerKey = BuildConfig.
     private val binding: MainActivityBinding by viewBinding()
     lateinit var itemCount : MaterialTextView
     private val viewModel : MainViewModel by viewModels()
