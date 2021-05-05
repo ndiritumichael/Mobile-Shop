@@ -10,15 +10,18 @@
     android:layout_marginStart="10dp"
     android:layout_height="wrap_content">
 
+
     <LinearLayout
 
-        android:id="@+id/productsLinear"
+
+        android:id="@+id/linear_layout_products"
         android:orientation="vertical"
 
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:padding="5dp">
         <ImageView
+            android:visibility="invisible"
             android:padding="6dp"
             android:backgroundTint="#000"
 
@@ -27,6 +30,14 @@
             android:layout_height="wrap_content"
             android:id="@+id/products_imageview"
             />
+        <ProgressBar
+
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:id="@+id/progress_circular"
+            />
+
 
         <com.google.android.material.textview.MaterialTextView
             android:layout_width="match_parent"
@@ -45,12 +56,7 @@
 
 
     </LinearLayout>
-    <ProgressBar
-        android:layout_width="wrap_content"
-        android:foregroundTint="@color/black"
-        android:layout_gravity="center"
-        android:visibility="visible"
-        android:layout_height="wrap_content"
-        android:id="@+id/pic_loading"/>
+
+
 
 </com.google.android.material.card.MaterialCardView>

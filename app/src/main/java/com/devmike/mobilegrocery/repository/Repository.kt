@@ -40,7 +40,7 @@ fun addOrderitem(product: Product){
 
         } else{
 
-            ordersItemList[0].quantity  = ordersItemList[0].quantity!! + 1
+            ordersItemList[0].quantity  = ordersItemList[0].quantity + 1
             updateOrder(ordersItemList[0])
 
         }

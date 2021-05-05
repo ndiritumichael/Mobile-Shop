@@ -67,13 +67,23 @@ class CartActivity : AppCompatActivity() {
             adapter.submitList(list)
         }
         viewmodel.allOrdersItem.observe(this) { ordersItem ->
+            if (ordersItem.isEmpty()){
+
+                checkoutAmount = 0.0
+            }
+            binding.clearCart.text = "Clear Cart"
             totalCost(ordersItem)
         }
         binding.checkout.setOnClickListener {
+            if (checkoutAmount==0.0){
+
+                Toast.makeText(this,"Your cart is empty please add some items",Toast.LENGTH_SHORT).show()
+            }
             checkOut()
         }
         binding.clearCart.setOnClickListener {
             viewmodel.clearcart()
+            binding.clearCart.text = "Cart is Clear"
             Toast.makeText(this, "Your Cart Has Been Cleared", Toast.LENGTH_SHORT).show()
         }
     }

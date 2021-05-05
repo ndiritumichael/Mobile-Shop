@@ -12,8 +12,9 @@ buildscript {
         lottieVersion = "3.4.0"
         hilt_version = '2.33-beta'
         nav_version = "2.3.5"
+        kotlin_version = "1.4.32"
     }
-    ext.kotlin_version = "1.4.32"
+
     repositories {
         google()
         jcenter()
