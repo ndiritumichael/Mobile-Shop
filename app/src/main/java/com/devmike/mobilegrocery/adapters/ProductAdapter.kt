@@ -28,6 +28,7 @@ class ProductAdapter (private val details :(Product)-> Unit): ListAdapter<Produc
                             binding.productsImageview.visibility = View.VISIBLE
                         }
 
+
                     )
                 }
                 productsNameTv.text =  product.name
