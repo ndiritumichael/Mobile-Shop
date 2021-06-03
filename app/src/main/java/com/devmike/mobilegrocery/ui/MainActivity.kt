@@ -6,14 +6,17 @@ import android.os.Bundle
 import android.view.Menu
 import android.viewbinding.library.activity.viewBinding
 import androidx.activity.viewModels
-import com.devmike.mobilegrocery.BuildConfig
+import androidx.lifecycle.observe
+import androidx.navigation.NavController
+import androidx.navigation.fragment.NavHostFragment
 import com.devmike.mobilegrocery.R
 
 import com.devmike.mobilegrocery.databinding.MainActivityBinding
 import com.devmike.mobilegrocery.models.OrdersItem
-import com.devmike.mobilegrocery.ui.cart.CartActivity
+import com.devmike.mobilegrocery.ui.cart.Config
 import com.devmike.mobilegrocery.ui.main.MainViewModel
 import com.google.android.material.textview.MaterialTextView
+import com.paypal.android.sdk.payments.PayPalService
 import dagger.hilt.android.AndroidEntryPoint
 
 @AndroidEntryPoint
@@ -22,6 +25,7 @@ class MainActivity : AppCompatActivity() {
     private val binding: MainActivityBinding by viewBinding()
     lateinit var itemCount : MaterialTextView
     private val viewModel : MainViewModel by viewModels()
+    lateinit var navController : NavController
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -30,6 +34,14 @@ class MainActivity : AppCompatActivity() {
         setSupportActionBar(binding.toolbar)
 
         binding.toolbar.inflateMenu(R.menu.cart_menu)
+
+        val intent = Intent(this, PayPalService::class.java)
+        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, Config.payconfig)
+        val navHostFragment = supportFragmentManager.findFragmentById(R.id.nav_host_fragment) as NavHostFragment
+       navController = navHostFragment.navController
+
+        startService(intent)
+
 
     }
 
@@ -43,8 +55,11 @@ class MainActivity : AppCompatActivity() {
         }
 actionView?.setOnClickListener {
     onOptionsItemSelected(menuItem)
-    val intent  = Intent(this,CartActivity::class.java)
- startActivity(intent)
+    navController.navigate(R.id.action_global_cart_fragment)
+   /* val intent  = Intent(this,CartActivity::class.java)
+ startActivity(intent)*
+     */
+
 
 
 }

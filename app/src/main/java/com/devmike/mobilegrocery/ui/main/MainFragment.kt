@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import android.viewbinding.library.fragment.viewBinding
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.navigation.findNavController
 
 import androidx.recyclerview.widget.LinearLayoutManager
@@ -30,7 +31,7 @@ class MainFragment : Fragment(R.layout.main_fragment) {
         super.onViewCreated(view, savedInstanceState)
       /*  val toolbar =binding.toolbar
         setHasOptionsMenu(true)
-      //  (activity as AppCompatActivity).setSupportActionBar(toolbar)
+      //  o0
         toolbar.inflateMenu(R.menu.cart_menu)
         toolbar.setOnMenuItemClickListener {
             when(it.itemId){

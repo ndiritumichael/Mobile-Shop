@@ -1,0 +1,68 @@
+{
+  "project_info": {
+    "project_number": "595218016317",
+    "project_id": "retrofit-routine",
+    "storage_bucket": "retrofit-routine.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595218016317:android:a09544223fb82956c96254",
+        "android_client_info": {
+          "package_name": "com.devmike.mobilegrocery"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595218016317-504nmokv06hi5o6uv43rmafm6m3au41g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMr0CARKlyz58VfoMcSzTkIreQJ0ENycA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595218016317-504nmokv06hi5o6uv43rmafm6m3au41g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:595218016317:android:516c965a73bcec8fc96254",
+        "android_client_info": {
+          "package_name": "com.maxxtips.retrofit_routine"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "595218016317-504nmokv06hi5o6uv43rmafm6m3au41g.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDMr0CARKlyz58VfoMcSzTkIreQJ0ENycA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "595218016317-504nmokv06hi5o6uv43rmafm6m3au41g.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

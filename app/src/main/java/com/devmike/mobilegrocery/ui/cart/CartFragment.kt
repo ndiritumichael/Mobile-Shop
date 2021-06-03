@@ -5,11 +5,16 @@ import android.os.Bundle
 import android.util.Log
 import android.view.View
 import android.viewbinding.library.activity.viewBinding
+import android.viewbinding.library.fragment.viewBinding
 import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.Fragment
+import androidx.fragment.app.viewModels
+import androidx.lifecycle.observe
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.devmike.mobilegrocery.BuildConfig
+import com.devmike.mobilegrocery.R
 import com.devmike.mobilegrocery.adapters.CartItemAdapter
 import com.devmike.mobilegrocery.databinding.CartActivityBinding
 import com.devmike.mobilegrocery.models.OrdersItem
@@ -20,8 +25,15 @@ import com.google.gson.Gson
 import com.paypal.android.sdk.payments.*
 import dagger.hilt.android.AndroidEntryPoint
 import org.json.JSONException
-import org.json.JSONObject
 import java.math.BigDecimal
+
+// TODO: Rename parameter arguments, choose names that match
+
+/**
+ * A simple [Fragment] subclass.
+ * Use the [CartFragment.newInstance] factory method to
+ * create an instance of this fragment.
+ */
 
 
 const val PAYPAL_REQUEST_CODE = 2021
@@ -33,40 +45,36 @@ object Config {
 }
 
 @AndroidEntryPoint
-class CartActivity : AppCompatActivity() {
-
-    private val viewmodel: MainViewModel by viewModels()
+class CartFragment : Fragment(R.layout.cart_activity) {
+    private val mainViewModel: MainViewModel by viewModels()
     private val binding: CartActivityBinding by viewBinding()
     private lateinit var adapter: CartItemAdapter
     var checkoutAmount = 0.0
-    private val TAG = CartActivity::class.java.name
+    private val TAG = "CartFragment"
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-        setContentView(binding.root)
-        val intent = Intent(this, PayPalService::class.java)
-        intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, Config.payconfig)
-        startService(intent)
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+        (activity as AppCompatActivity).supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.setHomeButtonEnabled(true)
+        (activity as AppCompatActivity).supportActionBar?.title = "Cart"
 
-        supportActionBar?.setHomeButtonEnabled(true)
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-        supportActionBar?.title = "Cart"
         adapter = CartItemAdapter { id ->
             deleteItem(id)
         }
         setUpUI()
 
-
     }
 
     private fun setUpUI() {
-        binding.cartRecycler.layoutManager = LinearLayoutManager(this)
+        binding.cartRecycler.layoutManager = LinearLayoutManager(context)
         binding.cartRecycler.adapter = adapter
-        viewmodel.allOrdersItem.observe(this) { list ->
+
+        mainViewModel.allOrdersItem.observe(viewLifecycleOwner) { list ->
             adapter.submitList(list)
+            // Toast.makeText(this,"${list[99]}",Toast.LENGTH_SHORT).show()
         }
-        viewmodel.allOrdersItem.observe(this) { ordersItem ->
+        mainViewModel.allOrdersItem.observe(viewLifecycleOwner) { ordersItem ->
             if (ordersItem.isEmpty()){
 
                 checkoutAmount = 0.0
@@ -77,14 +85,14 @@ class CartActivity : AppCompatActivity() {
         binding.checkout.setOnClickListener {
             if (checkoutAmount==0.0){
 
-                Toast.makeText(this,"Your cart is empty please add some items",Toast.LENGTH_SHORT).show()
+                Toast.makeText(context,"Your cart is empty please add some items", Toast.LENGTH_SHORT).show()
             }
             checkOut()
         }
         binding.clearCart.setOnClickListener {
-            viewmodel.clearcart()
+            mainViewModel.clearcart()
             binding.clearCart.text = "Cart is Clear"
-            Toast.makeText(this, "Your Cart Has Been Cleared", Toast.LENGTH_SHORT).show()
+            Toast.makeText(context, "Your Cart Has Been Cleared", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -96,7 +104,8 @@ class CartActivity : AppCompatActivity() {
                 BigDecimal(checkoutAmount), "USD", "New Order",
                 PayPalPayment.PAYMENT_INTENT_SALE
             )
-            val intent = Intent(this, PaymentActivity::class.java)
+            val intent = Intent(context, PaymentActivity::class.java)
+
 
 
             intent.putExtra(PayPalService.EXTRA_PAYPAL_CONFIGURATION, Config.payconfig)
@@ -107,11 +116,34 @@ class CartActivity : AppCompatActivity() {
         }
 
     }
+    fun totalCost(orderItemsList: List<OrdersItem>) {
+        var total: Double = 0.0
+        for (i in orderItemsList) {
+            val orderItem: OrdersItem = i
+            total += orderItem.quantity.toDouble() * orderItem.unitPrice!!
+            checkoutAmount = total
+        }
+        if (total == 0.0) {
+            binding.tvCartTotal.visibility = View.GONE
+        }
+        val totalItems = "Subtotal( ${orderItemsList.size} Order(s) ): $$total"
+        binding.tvCartTotal.text = totalItems
+    }
+
+    private fun deleteItem(id: Int) {
+
+        mainViewModel.deleteOrder(id)
+
+    }
+
+
+
+
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (requestCode == PAYPAL_REQUEST_CODE && resultCode == RESULT_OK) {
+        if (requestCode == PAYPAL_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_OK) {
             val confirm =
                 data?.getParcelableExtra<PaymentConfirmation>(PaymentActivity.EXTRA_RESULT_CONFIRMATION)
 
@@ -131,7 +163,7 @@ class CartActivity : AppCompatActivity() {
                         Payment::class.java
                     )
                     Log.d(TAG,"$payment")
-                    viewmodel.clearcart()
+                    mainViewModel.clearcart()
                     binding.checkout.visibility = View.GONE
                     binding.confirmed.root.visibility = View.VISIBLE
                     binding.confirmed.amount.text = """USD: ${payment.amount.toString()}"""
@@ -148,55 +180,28 @@ class CartActivity : AppCompatActivity() {
             }
 
 
-        } else if (requestCode == PAYPAL_REQUEST_CODE && resultCode == RESULT_CANCELED) {
+        } else if (requestCode == PAYPAL_REQUEST_CODE && resultCode == AppCompatActivity.RESULT_CANCELED) {
             Toast.makeText(
-                this,
+                context,
                 "You cancelled the transaction ,Please try again " ,
                 Toast.LENGTH_LONG
             ).show()
 
 
         } else if (resultCode == PaymentActivity.RESULT_EXTRAS_INVALID) {
-            Toast.makeText(
-                this,
+            Toast.makeText(context,
                 "An invalid Payment or PayPalConfiguration was submitted.Please restart application",
                 Toast.LENGTH_SHORT
             ).show()
         } else {
-            Toast.makeText(this, "Something Went wrong Please Try Again", Toast.LENGTH_LONG)
+            Toast.makeText(context, "Something Went wrong Please Try Again", Toast.LENGTH_LONG)
                 .show()
         }
 
 
     }
 
-    private fun deleteItem(id: Int) {
 
-        viewmodel.deleteOrder(id)
-
-    }
-
-
-    fun totalCost(orderItemsList: List<OrdersItem>) {
-        var total: Double = 0.0
-        for (i in orderItemsList) {
-            val orderItem: OrdersItem = i
-            total += orderItem.quantity.toDouble() * orderItem.unitPrice!!
-            checkoutAmount = total
-        }
-        if (total == 0.0) {
-            binding.tvCartTotal.visibility = View.GONE
-        }
-        val totalItems = "Subtotal( ${orderItemsList.size} Order(s) ): $$total"
-        binding.tvCartTotal.text = totalItems
-    }
-
-
-    override fun onDestroy() {
-        stopService(Intent(this, PayPalService::class.java))
-        super.onDestroy()
-    }
 
 
 }
-
